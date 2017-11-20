@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    order_params = {type: 'flat_white', name: 'stuart'}
+    # order_params = {menu_item: 'fla/t_white', name: 'stuart'}
     @order = Order.new(order_params)
 
     respond_to do |format|
@@ -70,6 +70,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:type, :name)
+      params.require(:order).permit(:menu_item, :name)
     end
 end

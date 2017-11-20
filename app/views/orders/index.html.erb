@@ -14,7 +14,7 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.type %></td>
+        <td><%= order.menu_item %></td>
         <td><%= order.name %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
