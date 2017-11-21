@@ -1,10 +1,12 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.all
+    render json: @orders
   end
 
   # GET /orders/1
@@ -27,14 +29,13 @@ class OrdersController < ApplicationController
     # order_params = {menu_item: 'fla/t_white', name: 'stuart'}
     @order = Order.new(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+        # format.html { redirect_to @order, notice: 'Order was successfully created.' }
+      render json: {message: 'successfully created order', order: @order}, status: :ok
+        # format.json { render :show, status: :created, location: @order }
+    else
+      # format.html { render :new }
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
